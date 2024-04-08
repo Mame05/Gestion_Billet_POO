@@ -1,11 +1,17 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once 'config.php';
+require_once 'destination.php';
 
 if(isset($_POST['submit'])){
     $nom_ville = $_POST['nom_ville'];
 
     if(!empty($nom_ville)) {
         try{
+            $destination = new Destination($bdd,$nom_ville);
             $destination->createDestination($nom_ville);
         } catch(PDOException $e) {
             echo "Erreur lors de l'ajout de la destination : " . $e->getMessage();

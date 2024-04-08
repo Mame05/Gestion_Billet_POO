@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once 'config.php';
 require_once 'destination.php';
 
@@ -15,6 +19,8 @@ if(isset($_GET['id'])) {
 
 if(isset($_POST['submit'])) {
     $nom_ville = $_POST['nom_ville'];
+
+    $destination = new Destination($bdd, $nomVille);
 
     if(!empty($nom_ville)) {
         try{

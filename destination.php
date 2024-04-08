@@ -25,7 +25,7 @@ class Destination implements CRUD {
             $stmt = $this->bdd->prepare("INSERT INTO destination (nom_ville) VALUES (:nomVille)");
             $stmt->bindParam(':nomVille', $nomVille);
             $stmt->execute();
-            header('location: view_destination.php');
+            header('location: readDestination.php');
             exit;
         } catch(PDOException $e) {
             die("Impossible d'insérer les données dans la base : ".$e->getMessage());
@@ -49,7 +49,7 @@ class Destination implements CRUD {
             $stmt->bindParam(':nomVille', $nomVille);
             $stmt->bindParam(':id', $id);
             $stmt->execute();
-            header('location: view_destination.php');
+            header('location: readDestination.php');
             exit;
         } catch(PDOException $e) {
             die("Impossible de modifier les données de la destination : ".$e->getMessage());
@@ -61,7 +61,7 @@ class Destination implements CRUD {
             $stmt = $this->bdd->prepare("DELETE FROM destination WHERE id = :id");
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
-            header('location: view_destination.php');
+            header('location: readDestination.php');
             exit;
         } catch(PDOException $e) {
             die("Impossible de supprimer la destination : ".$e->getMessage());

@@ -18,7 +18,6 @@
                 <li><a href="view_client.php">Clients</a></li>
                 <li><a href="billets.php">Billets</a></li>
                 <li><a href="readDestination.php">Destinations</a></li>
-                <!-- Ajoutez d'autres liens de navigation selon votre structure de site -->
             </ul>
         </nav>
         <i class="fas fa-bars"></i>
