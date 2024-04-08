@@ -1,5 +1,5 @@
 <?php
-interface CRUD
+interface CRUD_CLIENT
 {
     public function createClient($nom,$prenom,$tel,$adresse,$email);
     public function readClient();

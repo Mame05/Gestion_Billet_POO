@@ -1,5 +1,5 @@
 <?php
-interface CRUD
+interface CRUD_BILLET
 {
     public function createBillet($depart,$id_destination,$date_depart,$date_arrivee,$prix,$statut,$date_reservation,$id_client);
     public function readBillet();
