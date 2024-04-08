@@ -68,6 +68,7 @@ if(isset($_POST['submit'])) {
         ?>
 
         <span class="btnretour">
+
             <a href="indexBillet.php">Retour</a>
         </span>
         <form action="updateBillet.php?id=<?php echo $id;?>" method="POST">
