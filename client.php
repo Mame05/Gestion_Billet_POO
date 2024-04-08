@@ -101,27 +101,25 @@ require_once 'crudClient.php';
         }
 
         public function updateClient($id, $nom, $prenom, $tel, $adresse, $email) {
-
-            try{
-
-                $sth->prepare("UPDATE client SET nom = :nom, prenom = :prenom, tel = :tel, adresse = :adresse, email = :email");
-
-                $sth->bindParam(':nom', $nom);
-                $sth->bindParam(':prenom', $prenom);
-                $sth->bindParam(':tel', $tel);
-                $sth->bindParam(':adresse', $adresse);
-                $sth->bindParam(':email', $email);
-                $sth->bindParam(':id', $id);
-
-                $sth->execute();
-
-                header('location: veiw_client.php');
+            try {
+                $stmt = $this->bdd->prepare("UPDATE client SET nom = :nom, prenom = :prenom, tel = :tel, adresse = :adresse, email = :email WHERE id = :id");
+        
+                $stmt->bindParam(':nom', $nom);
+                $stmt->bindParam(':prenom', $prenom);
+                $stmt->bindParam(':tel', $tel);
+                $stmt->bindParam(':adresse', $adresse);
+                $stmt->bindParam(':email', $email);
+                $stmt->bindParam(':id', $id);
+        
+                $stmt->execute();
+        
+                header('location: view_client.php');
                 exit;
-
             } catch(PDOException $e) {
                 die("Impossible de modifier les données du client : ".$e->getMessage());
             }
         }
+        
 
         public function deleteClient($id) {
 
