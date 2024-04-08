@@ -1,7 +1,7 @@
 <?php
 require_once 'crudClient.php';
 
-    class Client {
+    class Client implements CRUD {
 
         private $bdd;
         private $nom;
@@ -9,8 +9,8 @@ require_once 'crudClient.php';
         private $tel;
         private $adresse;
         private $email;
-    
-        public function __construct($bdd,$nom,$prenom,$tel,$adresse,$email) {
+
+        public function __construct($bdd, $nom, $prenom, $tel, $adresse, $email) {
 
             $this->bdd = $bdd;
             $this->nom = $nom;
@@ -61,29 +61,28 @@ require_once 'crudClient.php';
             $this->email = $nouveauEmail;
         }
 
-        // La méthode d'ajout de client
-        public function addClient($nom, $prenom, $tel, $adresse, $email) {
+        // Méthode d'ajout de client
+        public function createClient($nom, $prenom, $tel, $adresse, $email) {
 
             try {
 
-                // Je prépare la requete qui va nous permettre d'insérer des données
-                $sth->prepare("INSERT INTO client (nom, prenom, tel, adresse, email) VALUES (:nom, :prenom, :tel, :adresse, :email)");
+                $stmt = $this->bdd->prepare("INSERT INTO client (nom, prenom, tel, adresse, email) VALUES (:nom, :prenom, :tel, :adresse, :email)");
 
-                $sth->bindParam(':nom', $nom);
-                $sth->bindParam(':prenom', $prenom);
-                $sth->bindParam(':tel', $tel);
-                $sth->bindParam(':adresse', $adresse);
-                $sth->bindParam(':email', $email);
+                $stmt->bindParam(':nom', $nom);
+                $stmt->bindParam(':prenom', $prenom);
+                $stmt->bindParam(':tel', $tel);
+                $stmt->bindParam(':adresse', $adresse);
+                $stmt->bindParam(':email', $email);
 
-                $sth->execute();
+                $stmt->execute();
 
-                header('location: veiw_client.php');
+                header('location: view_client.php');
                 exit;
 
             } catch(PDOException $e) {
                 die("Impossible d'insérer les données dans la base : ".$e->getMessage());
             }
-        } 
+        }  
 
         public function readClient() {
 
