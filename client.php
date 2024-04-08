@@ -124,15 +124,15 @@ require_once 'crudClient.php';
         public function deleteClient($id) {
 
             try {
-
-                $sth->prepare("DELETE FROM client WHERE id = :id");
-
+    
+                $sth = $this->bdd->prepare("DELETE FROM client WHERE id = :id");
+    
                 $sth->bindParam(':id', $id, PDO::PARAM_INT);
                 $sth->execute();
-
-                header('location: veiw_client.php');
+    
+                header('location: view_client.php');
                 exit;
-
+    
             } catch(PDOException $e) {
                 die("Impossible de supprimer le client : ".$e->getMessage());
             }

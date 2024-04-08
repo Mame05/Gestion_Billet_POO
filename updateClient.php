@@ -89,6 +89,11 @@ if(isset($_POST['submit'])) {
 </head>
 <body>
 
+        <!-- Ceci est mo header -->
+        <?php
+            require 'header.php';
+        ?>
+
     <div class="container">
         <?php
             // Récupérer les données du client à mettre à jour
