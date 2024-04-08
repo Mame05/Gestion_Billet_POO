@@ -24,7 +24,7 @@ $resultat = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         .containerClient {
-            max-width: 800px;
+            width: 62%;
             margin: 20px auto;
             background-color: #fff;
             padding: 20px;
@@ -62,8 +62,9 @@ $resultat = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         th, td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 18px;
             text-align: left;
+            font-size: 19px;
         }
 
         th {

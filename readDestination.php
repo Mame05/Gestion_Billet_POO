@@ -22,7 +22,7 @@ require_once 'config.php';
         }
 
         .containerClient {
-            max-width: 800px;
+            width: 62%;
             margin: 20px auto;
             background-color: #fff;
             padding: 20px;
@@ -60,8 +60,9 @@ require_once 'config.php';
 
         th, td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 18px;
             text-align: left;
+            font-size: 19px;
         }
 
         th {
