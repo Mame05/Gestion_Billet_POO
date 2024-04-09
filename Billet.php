@@ -111,11 +111,11 @@ class Billet implements CRUD_BILLET
     
    
     //Methode pour ajouter des Billets
-    public function createBillet($depart,$id_destination,$date_depart,$date_arrivee,$prix,$statut,$date_reservation,$id_client)
+    public function createBillet($depart,$id_destination,$date_depart,$date_arrivee,$prix,$statut)
     {
         try {
             //requete pour inserer
-            $sql= "INSERT INTO billet(depart,id_destination,date_depart,date_arrivee,prix,statut,date_reservation,id_client) VALUES(:depart,:destination,:date_depart,:date_arrivee,:prix,:statut,:date_reservation,:client,)";
+            $sql= "INSERT INTO billet(depart,id_destination,date_depart,date_arrivee,prix,statut) VALUES(:depart,:destination,:date_depart,:date_arrivee,:prix,:statut)";
     
                //preparation de la requete
             $stmt=$this->bdd->prepare($sql);
@@ -127,9 +127,7 @@ class Billet implements CRUD_BILLET
             $stmt->bindParam(':date_arrivee',$date_arrivee, PDO::PARAM_STR);
             $stmt->bindParam(':prix',$prix, PDO::PARAM_INT);
             $stmt->bindParam(':statut',$statut, PDO::PARAM_STR);
-            $stmt->bindParam(':date_reservation',$date_reservation, PDO::PARAM_STR);
-            $stmt->bindParam(':client',$id_client, PDO::PARAM_INT);
-    
+
             //execute la requete
     
             $stmt->execute();
@@ -149,9 +147,8 @@ class Billet implements CRUD_BILLET
     {
         try {
             //requete sql pour selectionner tout les membres
-            $sql="SELECT b.*, c.nom,prenom,tel,adresse,email, d.nom_ville FROM billet b 
-            LEFT JOIN destination d ON b.id_destination = d.id 
-            LEFT JOIN client c ON b.id_client = c.id";
+            $sql="SELECT b.* d.nom_ville FROM billet b 
+            LEFT JOIN destination d ON b.id_destination = d.id";
 
             //preparation de la requete
             $stmt=$this->bdd->prepare($sql);
@@ -169,12 +166,12 @@ class Billet implements CRUD_BILLET
     }
 
     //Methode pour modifier les billets
-    public function updateBillet($id,$depart,$id_destination,$date_depart,$date_arrivee,$prix,$statut,$date_reservation)
+    public function updateBillet($id,$depart,$id_destination,$date_depart,$date_arrivee,$prix,$statut)
     {
         try{
 
             //J'écris la requete qui va me permettre de modifier un billet
-            $sql = "UPDATE billet SET depart=:depart, id_destination=:destination, date_depart=:date_depart, date_arrivee=:date_arrivee, pris=:prix, statut=:statut, date_reservation=:date_reservation WHERE id=:id";
+            $sql = "UPDATE billet SET depart=:depart, id_destination=:destination, date_depart=:date_depart, date_arrivee=:date_arrivee, pris=:prix, statut=:statut WHERE id=:id";
 
             //Je prépare la requete
             $stmt=$this->bdd->prepare($sql);
@@ -186,7 +183,6 @@ class Billet implements CRUD_BILLET
             $stmt->bindParam(':date_arrivee',$date_arrivee);
             $stmt->bindParam(':prix',$prix);
             $stmt->bindParam(':statut',$statut);
-            $stmt->bindParam(':date_reservation',$date_reservation);
 
             //J'execute la requete
             $stmt->execute();
