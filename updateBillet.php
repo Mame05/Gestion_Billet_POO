@@ -78,6 +78,7 @@ if(isset($_POST['submit'])) {
 
             <label for="destination">Destination :</label><br>
             <select name="destination" id="destination" required>
+<<<<<<< HEAD
                     <option value="">Sélectionnez la destination</option>
                     <!-- On utilisez PHP pour générer les options à partir des données de la table destination -->
                 <?php
@@ -89,6 +90,19 @@ if(isset($_POST['submit'])) {
                     echo "<option value=\"{$destination['id']}\">{$destination['nom_ville']}</option>";
                     }
                 ?>
+=======
+            <option value="">Sélectionnez la destination</option>
+            <!-- Utilisez PHP pour générer les options à partir des données de la table destination -->
+            <?php
+            //Script pour récupérer les données de la table destination
+            $sql_destination = "SELECT id, nom_ville FROM destination";
+            $stmt_destination = $bdd->query($sql_statut);
+            $liste_destination = $stmt_destination->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($liste_destination as $destination) {
+            echo "<option value=\"{$destination['id']}\">{$destination['nom_ville']}</option>";
+            }
+            ?>
+>>>>>>> a09f4d2 (Implémentation du fichier updateBillet)
            </select><br> 
             
             <label for="date_depart">Date du Départ :</label>
