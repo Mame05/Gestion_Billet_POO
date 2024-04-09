@@ -127,17 +127,13 @@ class Billet implements CRUD_BILLET
             $stmt->bindParam(':date_arrivee',$date_arrivee, PDO::PARAM_STR);
             $stmt->bindParam(':prix',$prix, PDO::PARAM_INT);
             $stmt->bindParam(':statut',$statut, PDO::PARAM_STR);
-
             //execute la requete
-    
             $stmt->execute();
     
             //rediriger la page 
-            header("location: index.php");
+            header("location: indexBillet.php");
             exit();
-    
-    
-        } catch (PDOException $e) {
+    } catch (PDOException $e) {
             die("erreur: impossible d'inserer des données" .$e->getMessage());
         }
     }
@@ -146,9 +142,9 @@ class Billet implements CRUD_BILLET
     public function readBillet()
     {
         try {
-            //requete sql pour selectionner tout les membres
-            $sql="SELECT b.* d.nom_ville FROM billet b 
-            LEFT JOIN destination d ON b.id_destination = d.id";
+            //requete sql pour selectionner tout les billet
+            $sql="SELECT b.*, d.nom_ville FROM billet b 
+            JOIN destination d ON b.id_destination = d.id";
 
             //preparation de la requete
             $stmt=$this->bdd->prepare($sql);
@@ -167,16 +163,19 @@ class Billet implements CRUD_BILLET
 
     //Methode pour modifier les billets
     public function updateBillet($id,$depart,$id_destination,$date_depart,$date_arrivee,$prix,$statut)
+
     {
         try{
 
             //J'écris la requete qui va me permettre de modifier un billet
-            $sql = "UPDATE billet SET depart=:depart, id_destination=:destination, date_depart=:date_depart, date_arrivee=:date_arrivee, pris=:prix, statut=:statut WHERE id=:id";
+
+            $sql = "UPDATE billet SET depart=:depart,id_destination=:destination,date_depart=:date_depart,date_arrivee=:date_arrivee,prix=:prix,statut=:statut WHERE id=:id";
 
             //Je prépare la requete
             $stmt=$this->bdd->prepare($sql);
 
-            //Je lis les valeurs aux paramètres
+            //Liaison des valeurs aux paramètres
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->bindParam(':depart',$depart);
             $stmt->bindParam(':destination',$id_destination);
             $stmt->bindParam(':date_depart',$date_depart);
@@ -184,27 +183,26 @@ class Billet implements CRUD_BILLET
             $stmt->bindParam(':prix',$prix);
             $stmt->bindParam(':statut',$statut);
 
-            //J'execute la requete
+            //Exécution de la requête
             $stmt->execute();
 
             //Si la modification passe
             return true;
 
-            //Je fait une redirection vers la page index
-            header('location: index.php');
+            //Redirection vers la page indexBillet
+            header('location: indexBillet.php');
             exit;
 
         } catch(PDOException $e) {
             die("Erreur : Impossible de modifier le billet" .$e->getMessage());
         }
     }
-
     //methode pour supprimer les billets
     public function deleteBillet($id)
    {
         try{
             // Préparez votre requête de suppression
-           $sql = "DELETE  FROM billet WHERE id = :id";
+           $sql = "DELETE FROM billet WHERE id = :id";
 
             //Préparer la requête
             $stmt = $this->bdd->prepare($sql);
@@ -216,7 +214,7 @@ class Billet implements CRUD_BILLET
             $stmt->execute();
 
             //rediriger la page 
-            header("location: index.php");
+            header("location: indexBillet.php");
             exit();
         } catch (PDOException $e){
             die("Identifiant invalide" .$e->getMessage());

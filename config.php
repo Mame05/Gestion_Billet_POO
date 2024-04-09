@@ -9,6 +9,7 @@ define("PASS", "");
 
 try {
         $bdd = new PDO("mysql:host=".SERVER.";dbname=".DBNAME,USER,PASS);
+
         $billet = new Billet($bdd,"Dakar","Paris","2024-04-05","2024-04-06","350000","Confirmé","2024-04-02","fatou");
         //Appel de la méthode d'affichage
         $resultats= $billet->readBillet();
